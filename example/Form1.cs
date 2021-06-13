@@ -42,7 +42,7 @@ namespace example
             b_node.AddChild(f_node);
             b_node.AddChild(g_node);
             e_node.AddChild(h_node);
-             
+
             ArrangeTree();
         }
 
@@ -50,39 +50,26 @@ namespace example
         {
             using (Graphics gr = pictureBox1.CreateGraphics())
             {
-            
-                    // Arrange the tree once to see how big it is.
-                    float xmin = 0, ymin = 0;
-                    root.Draw(gr, ref xmin, ref ymin);
 
-                    // Arrange the tree again to center it horizontally.
-                    xmin = (pictureBox1.ClientSize.Width - xmin) / 2;
-                    ymin = 10;
-                    root.Draw(gr, ref xmin, ref ymin);
-              
+                float xmin = 0, ymin = 0;
+                root.Draw(gr, ref xmin, ref ymin);
+                xmin = (pictureBox1.ClientSize.Width - xmin) / 2;
+                ymin = 10;
+                root.Draw(gr, ref xmin, ref ymin);
+
             }
 
             pictureBox1.Refresh();
         }
-
-        // The currently selected node.
         private TreeNode<CircleNode> SelectedNode;
 
         private void pictureBox1_Click(object sender, MouseEventArgs e)
         {
-             
-            // Find the node under the mouse.
             FindNodeUnderMouse(e.Location);
 
-            // If there is a node under the mouse,
-            // display the context menu.
             if (SelectedNode != null)
             {
-                // Don't let the user delete the root node.
-                // (The TreeNode class can't do that.)
                 contextMenuStrip1.Enabled = (SelectedNode != root);
-
-                // Display the context menu.
                 contextMenuStrip1.Show(this, e.Location);
             }
         }
@@ -109,10 +96,8 @@ namespace example
             if (form2.ShowDialog() == DialogResult.OK)
             {
                 TreeNode<CircleNode> child =
-                    new TreeNode<CircleNode>(new CircleNode(form2.textBox1.Text)); 
+                    new TreeNode<CircleNode>(new CircleNode(form2.textBox1.Text));
                 SelectedNode.AddChild(child);
-
-                // Rearrange the tree to show the new node.
                 ArrangeTree();
             }
         }
@@ -120,13 +105,10 @@ namespace example
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Действительно хотите удалить?",
-    "Удаление", MessageBoxButtons.YesNo,
-    MessageBoxIcon.Question) == DialogResult.Yes)
+                "Удаление", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                // Delete the node and its subtree.
                 root.DeleteNode(SelectedNode);
-
-                // Rearrange the tree to show the new structure.
                 ArrangeTree();
             }
         }

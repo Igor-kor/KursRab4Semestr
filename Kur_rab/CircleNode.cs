@@ -24,6 +24,7 @@ namespace Kur_rab
         void IDrawable.Draw(float x, float y, Graphics gr, Pen pen, Brush bg_brush, Brush text_brush, Font font)
         { 
             SizeF my_size = GetSize(gr, font);
+            // рисуем круг
             RectangleF rect = new RectangleF(
                 x - my_size.Width / 2,
                 y - my_size.Height / 2,
@@ -40,7 +41,7 @@ namespace Kur_rab
             }
         }
 
-        //
+        // определение принадлежности точки к узлу
         bool IDrawable.IsAtPoint(Graphics gr, Font font, PointF center_pt, PointF target_pt)
         {
             SizeF my_size = GetSize(gr, font);
