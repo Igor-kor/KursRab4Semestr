@@ -22,14 +22,7 @@ namespace Kur_rab
         // Spacing for verticaly orientation.
         public float Indent = 20;
         public float SpotRadius = 5;
-
-        public enum Orientations
-        {
-            Horizontal,
-            Vertical
-        }
-        public Orientations Orientation = Orientations.Horizontal;
-
+         
         // The node's center after arranging.
         private PointF DataCenter;
 
@@ -43,18 +36,17 @@ namespace Kur_rab
         public Brush BgBrush = Brushes.White;
 
         // Recursively set the subtree's orientation.
-        public void SetTreeDrawingParameters(float h_offset, float v_offset, float indent, float node_radius, Orientations orientation)
+        public void SetTreeDrawingParameters(float h_offset, float v_offset, float indent, float node_radius)
         {
             HOffset = h_offset;
             VOffset = v_offset;
             Indent = indent;
-            SpotRadius = node_radius;
-            Orientation = orientation;
+            SpotRadius = node_radius; 
 
             // Recursively sedt the properties for the subtree.
             foreach (TreeNode<T> child in Children)
                 child.SetTreeDrawingParameters(h_offset, v_offset,
-                    indent, node_radius, orientation);
+                    indent, node_radius);
         }
 
         // Constructor.
@@ -75,23 +67,16 @@ namespace Kur_rab
             Children.Add(child);
         }
 
-        // Arrange the node and its children in the allowed area.
+       /* // Arrange the node and its children in the allowed area.
         // Set xmin to indicate the right edge of our subtree.
         // Set ymin to indicate the bottom edge of our subtree.
         public void Arrange(Graphics gr, ref float xmin, ref float ymin)
-        {
-            if (Orientation == TreeNode<T>.Orientations.Horizontal)
-            {
-                ArrangeHorizontally(gr, ref xmin, ref ymin);
-            }
-            else
-            {
-                ArrangeVertically(gr, xmin, ref ymin);
-            }
-        }
+        { 
+                ArrangeHorizontally(gr, ref xmin, ref ymin); 
+        }*/
 
         // Arrange the subtree horizontally.
-        public void ArrangeHorizontally(Graphics gr, ref float xmin, ref float ymin)
+        public void Arrange(Graphics gr, ref float xmin, ref float ymin)
         {
             // See how big this node is.
             SizeF my_size = Data.GetSize(gr, MyFont);
@@ -150,7 +135,7 @@ namespace Kur_rab
             // Set the return value for ymin.
             ymin = biggest_ymin;
         }
-
+        /*
         // Arrange the subtree vertically.
         public void ArrangeVertically(Graphics gr, float xmin, ref float ymin)
         {
@@ -178,7 +163,7 @@ namespace Kur_rab
                 child.ArrangeVertically(gr, xmin + Indent, ref ymin);
             }
         }
-
+        */
         // Draw the subtree rooted at this node
         // with the given upper left corner.
         public void DrawTree(Graphics gr, ref float x, float y)
@@ -200,21 +185,8 @@ namespace Kur_rab
             DrawSubtreeNodes(gr);
         }
 
-        // Draw the links for the subtree rooted at this node.
-        private void DrawSubtreeLinks(Graphics gr)
-        {
-            if (Orientation == TreeNode<T>.Orientations.Horizontal)
-            {
-                DrawSubtreeLinksHorizontal(gr);
-            }
-            else
-            {
-                DrawSubtreeLinksVertical(gr);
-            }
-        }
-
         // Draw the links for the horizontal subtree rooted at this node.
-        private void DrawSubtreeLinksHorizontal(Graphics gr)
+        private void DrawSubtreeLinks(Graphics gr)
         {
             foreach (TreeNode<T> child in Children)
             {
@@ -222,46 +194,16 @@ namespace Kur_rab
                 gr.DrawLine(MyPen, DataCenter, child.DataCenter);
 
                 // Recursively make the child draw its subtree nodes.
-                child.DrawSubtreeLinksHorizontal(gr);
+                child.DrawSubtreeLinks(gr);
             }
         }
 
-        // Draw the links for the subtree rooted at this node.
-        private void DrawSubtreeLinksVertical(Graphics gr)
-        {
-            foreach (TreeNode<T> child in Children)
-            {
-                // Draw the link between this node this child.
-                gr.DrawLine(MyPen, SpotCenter.X, SpotCenter.Y, SpotCenter.X, child.SpotCenter.Y);
-                gr.DrawLine(MyPen, SpotCenter.X, child.SpotCenter.Y, child.SpotCenter.X, child.SpotCenter.Y);
-
-                // Recursively make the child draw its subtree nodes.
-                child.DrawSubtreeLinksVertical(gr);
-            }
-        }
 
         // Draw the nodes for the subtree rooted at this node.
         private void DrawSubtreeNodes(Graphics gr)
         {
             // Draw this node.
             Data.Draw(DataCenter.X, DataCenter.Y, gr, MyPen, BgBrush, FontBrush, MyFont);
-
-            // If oriented vertically, draw the node's spot.
-            if (Orientation == TreeNode<T>.Orientations.Vertical)
-            {
-                RectangleF rect = new RectangleF(
-                    SpotCenter.X - SpotRadius, SpotCenter.Y - SpotRadius,
-                    2 * SpotRadius, 2 * SpotRadius);
-                if (Children.Count > 0)
-                {
-                    gr.FillEllipse(Brushes.LightBlue, rect);
-                }
-                else
-                {
-                    gr.FillEllipse(Brushes.Orange, rect);
-                }
-                gr.DrawEllipse(MyPen, rect);
-            }
 
             // Recursively make the child draw its subtree nodes.
             foreach (TreeNode<T> child in Children)

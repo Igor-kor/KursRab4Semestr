@@ -42,8 +42,7 @@ namespace example
             b_node.AddChild(f_node);
             b_node.AddChild(g_node);
             e_node.AddChild(h_node);
-
-            // Position the tree.
+             
             ArrangeTree();
         }
 
@@ -51,8 +50,7 @@ namespace example
         {
             using (Graphics gr = pictureBox1.CreateGraphics())
             {
-                if (root.Orientation == TreeNode<CircleNode>.Orientations.Horizontal)
-                {
+            
                     // Arrange the tree once to see how big it is.
                     float xmin = 0, ymin = 0;
                     root.Arrange(gr, ref xmin, ref ymin);
@@ -61,14 +59,7 @@ namespace example
                     xmin = (pictureBox1.ClientSize.Width - xmin) / 2;
                     ymin = 10;
                     root.Arrange(gr, ref xmin, ref ymin);
-                }
-                else
-                {
-                    // Arrange the tree.
-                    float xmin = root.Indent;//@
-                    float ymin = xmin;
-                    root.Arrange(gr, ref xmin, ref ymin);
-                }
+              
             }
 
             pictureBox1.Refresh();
@@ -118,8 +109,7 @@ namespace example
             if (form2.ShowDialog() == DialogResult.OK)
             {
                 TreeNode<CircleNode> child =
-                    new TreeNode<CircleNode>(new CircleNode(form2.textBox1.Text));
-                child.Orientation = root.Orientation;
+                    new TreeNode<CircleNode>(new CircleNode(form2.textBox1.Text)); 
                 SelectedNode.AddChild(child);
 
                 // Rearrange the tree to show the new node.
