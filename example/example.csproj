@@ -6,4 +6,8 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Kur_rab\Kur_rab.csproj" />
+  </ItemGroup>
+
 </Project>
