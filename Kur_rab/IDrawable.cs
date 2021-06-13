@@ -8,13 +8,13 @@ namespace Kur_rab
 {
     public interface IDrawable
     {
-        // Return the object's needed size.
+        //Возвращает необходимый рназмер
         SizeF GetSize(Graphics gr, Font font);
 
-        // Return true if the node is above this point.
+        // вернет истину если узел на точке
         bool IsAtPoint(Graphics gr, Font font, PointF center_pt, PointF target_pt);
 
-        // Draw the object centered at (x, y).
+        //рисует обьект  с центром х у
         void Draw(float x, float y, Graphics gr, Pen pen,
             Brush bg_brush, Brush text_brush, Font font);
     }

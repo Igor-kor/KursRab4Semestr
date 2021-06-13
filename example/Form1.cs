@@ -21,18 +21,18 @@ namespace example
 
         }
         private TreeNode<CircleNode> root =
-          new TreeNode<CircleNode>(new CircleNode("Root"));
+          new TreeNode<CircleNode>(new CircleNode("Корень"));
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            TreeNode<CircleNode> a_node = new TreeNode<CircleNode>(new CircleNode("A"));
-            TreeNode<CircleNode> b_node = new TreeNode<CircleNode>(new CircleNode("B"));
-            TreeNode<CircleNode> c_node = new TreeNode<CircleNode>(new CircleNode("C"));
-            TreeNode<CircleNode> d_node = new TreeNode<CircleNode>(new CircleNode("D"));
-            TreeNode<CircleNode> e_node = new TreeNode<CircleNode>(new CircleNode("E"));
-            TreeNode<CircleNode> f_node = new TreeNode<CircleNode>(new CircleNode("F"));
-            TreeNode<CircleNode> g_node = new TreeNode<CircleNode>(new CircleNode("G"));
-            TreeNode<CircleNode> h_node = new TreeNode<CircleNode>(new CircleNode("H"));
+            TreeNode<CircleNode> a_node = new TreeNode<CircleNode>(new CircleNode("А"));
+            TreeNode<CircleNode> b_node = new TreeNode<CircleNode>(new CircleNode("Б"));
+            TreeNode<CircleNode> c_node = new TreeNode<CircleNode>(new CircleNode("В"));
+            TreeNode<CircleNode> d_node = new TreeNode<CircleNode>(new CircleNode("Г"));
+            TreeNode<CircleNode> e_node = new TreeNode<CircleNode>(new CircleNode("Д"));
+            TreeNode<CircleNode> f_node = new TreeNode<CircleNode>(new CircleNode("Е"));
+            TreeNode<CircleNode> g_node = new TreeNode<CircleNode>(new CircleNode("Ж"));
+            TreeNode<CircleNode> h_node = new TreeNode<CircleNode>(new CircleNode("З"));
 
             root.AddChild(a_node);
             root.AddChild(b_node);
@@ -53,12 +53,12 @@ namespace example
             
                     // Arrange the tree once to see how big it is.
                     float xmin = 0, ymin = 0;
-                    root.Arrange(gr, ref xmin, ref ymin);
+                    root.Draw(gr, ref xmin, ref ymin);
 
                     // Arrange the tree again to center it horizontally.
                     xmin = (pictureBox1.ClientSize.Width - xmin) / 2;
                     ymin = 10;
-                    root.Arrange(gr, ref xmin, ref ymin);
+                    root.Draw(gr, ref xmin, ref ymin);
               
             }
 
