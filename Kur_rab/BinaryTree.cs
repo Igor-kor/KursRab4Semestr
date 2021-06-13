@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Kur_rab
 { 
-    // Бинарное дерево 
+    // Бинарное дерево
     public class BinaryTree<T> where T : IComparable
     { 
         // Корень бинарного дерева 
